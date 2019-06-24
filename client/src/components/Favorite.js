@@ -8,13 +8,31 @@ export default class Favorite extends React.Component {
 	}
 	render() {
 		return (
-			<View style={{ backgroundColor: 'lightskyblue', height: '100%' }}>
-				<Text
-					style={{ fontSize: 40, position: 'relative', top: 100, left: 90 }}
-				>
+			<View
+				style={{
+					alignSelf: 'stretch',
+					height: '100%',
+					flex: 1,
+					alignItems: 'center',
+					backgroundColor: 'lightskyblue',
+					height: '100%'
+				}}
+			>
+				<Text style={{ fontSize: 40, position: 'relative', top: 100 }}>
 					My Favorite List
 				</Text>
-				<Button style={{}} />
+				<Button
+					style={{
+						width: 200,
+						height: 125,
+						position: 'relative',
+						top: 700,
+						bottom: 0,
+						opacity: 0.4
+					}}
+					title="Go Back To Map"
+					onPress={this.props.returnMap}
+				/>
 			</View>
 		);
 	}

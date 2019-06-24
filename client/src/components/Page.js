@@ -58,22 +58,31 @@ class Page extends React.Component {
 					<Text
 						style={{ fontSize: 18, position: 'relative', left: 10, top: 380 }}
 					>
-						{`+1(${this.props.bobaDetail.phone.slice(2, 5)})` +
-							this.props.bobaDetail.phone.slice(
-								5,
-								this.props.bobaDetail.phone.length
-							)}
+						{this.props.bobaDetail.phone}
 					</Text>
 					<Text
 						style={{ fontSize: 18, position: 'relative', left: 10, top: 390 }}
 					>
-						{this.props.bobaDetail.location.address1}
+						{/* {this.props.bobaDetail.location.address1}
 						{'\n'}
 						{this.props.bobaDetail.location.city}
 						{', '}
 						{this.props.bobaDetail.location.state}{' '}
-						{this.props.bobaDetail.location.zip_code}
+						{this.props.bobaDetail.location.zip_code} */}
+						{this.props.bobaDetail.location}
 					</Text>
+					<Button
+						style={{
+							width: 200,
+							height: 125,
+							position: 'relative',
+							top: 700,
+							bottom: 0,
+							opacity: 0.4
+						}}
+						title="Go Back To Map"
+						onPress={this.props.returnMap}
+					/>
 				</View>
 			</View>
 		);

@@ -57,23 +57,33 @@ export default class App extends React.Component {
 			if (err) {
 				console.log(err);
 			} else {
-				console.log(result.data.phone);
+				console.log(result.data.location);
 				bobaDetail.image = result.data.image_url;
-				bobaDetail.location = result.data.location;
+				bobaDetail.location = result.data.location.display_address;
 				bobaDetail.name = result.data.name;
 				bobaDetail.photos = result.data.photos;
 				bobaDetail.price = result.data.price;
 				bobaDetail.review = result.data.review_count;
 				bobaDetail.rating = result.data.rating;
-				bobaDetail.phone = result.data.phone;
+				if (result.data.phone.length === 0) {
+					bobaDetail.phone = 'Phone Number Unavailable';
+				} else {
+					bobaDetail.phone =
+						`+1(${result.data.phone.slice(2, 5)})` +
+						result.data.phone.slice(5, result.data.phone.length);
+				}
 				this.setState({ bobaDetail, detail: true, map: false });
 			}
 		});
 	};
 
-	getFavorite = () => {
-		this.setState({ favorite: true, map: false });
-	};
+	async getFavorite() {
+		await this.setState({ favorite: true, map: false });
+	}
+
+	async returnMap() {
+		await this.setState({ map: true, favorite: false, bobaDetail: false });
+	}
 
 	async regionChange(region) {
 		await this.setState({ region });
@@ -93,9 +103,19 @@ export default class App extends React.Component {
 				/>
 			);
 		} else if (this.state.favorite === true) {
-			component = <Favorite favoriteList={this.state.favoriteList} />;
+			component = (
+				<Favorite
+					returnMap={this.returnMap.bind(this)}
+					favoriteList={this.state.favoriteList}
+				/>
+			);
 		} else {
-			component = <Page bobaDetail={this.state.bobaDetail} />;
+			component = (
+				<Page
+					returnMap={this.returnMap.bind(this)}
+					bobaDetail={this.state.bobaDetail}
+				/>
+			);
 		}
 		return component;
 	}
