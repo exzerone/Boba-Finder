@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text } from 'react-native';
-import { Constants, Location, Permissions, MapView } from 'expo';
-import { PROVIDER_GOOGLE, Overlay } from 'react-native-maps';
-import Page from './Page';
+import { MapView } from 'expo';
+import { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Button } from 'react-native-elements';
 
 const Marker = MapView.Marker;
@@ -33,7 +32,10 @@ export default class Map extends Component {
 					title={place.name}
 					coordinate={place.coords}
 					onPress={this.showDescription}
-					identifier={place.name}
+					identifier={place.id}
+					onPress={() => {
+						this.props.getDetail(place.id);
+					}}
 				/>
 			);
 		});
@@ -68,14 +70,16 @@ export default class Map extends Component {
 				>
 					{this.renderMarkers()}
 				</MapView>
-				<Overlay style={styles.overlay}>
-					<Button
-						onPress={this.searchThisArea.bind(this)}
-						style={styles.button}
-						color="Red"
-						title="Search This Area"
-					/>
-				</Overlay>
+				<Button
+					onPress={this.searchThisArea.bind(this)}
+					style={styles.button}
+					color="#fff"
+					title="Search This Area"
+				/>
+				<Button
+					title="Favorite"
+					style={{ position: 'relative', bottom: 800, left: 160 }}
+				/>
 			</View>
 		);
 	}
@@ -95,23 +99,7 @@ const styles = {
 	},
 	button: {
 		position: 'abosulte',
-		top: 0,
-		backgroundColor: '#fff',
-		borderRadius: 15
+		bottom: 725,
+		opacity: 0.4
 	}
 };
-
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     alignItems: 'center',
-//   },
-//   map: {
-//     ...StyleSheet.absoluteFillObject,
-//   },
-//   overlay: {
-//     position: 'absolute',
-//     bottom: 50,
-//     backgroundColor: 'rgba(255, 255, 255, 1)',
-//   },
-// });

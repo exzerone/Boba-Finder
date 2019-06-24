@@ -40,6 +40,18 @@ const getBobaShops = (userLocation) => {
 		.catch((error) => console.error(error));
 };
 
+const getBobadetail = (id, callback) => {
+	api
+		.get(`businesses/${id}`)
+		.then((result) => {
+			callback(null, result);
+		})
+		.catch((err) => {
+			callback(err);
+		});
+};
+
 export default {
-	getBobaShops
+	getBobaShops,
+	getBobadetail
 };
