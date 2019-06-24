@@ -4,8 +4,7 @@ import { Location, Permissions } from 'expo';
 import Map from './Map';
 import Boba from './Boba';
 import Page from './Page';
-// import Favorite from './Favorite';
-import { ThemeProvider } from 'react-native-elements';
+import Favorite from './Favorite';
 
 const deltas = {
 	latitudeDelta: 0.0922,
@@ -67,13 +66,13 @@ export default class App extends React.Component {
 				bobaDetail.review = result.data.review_count;
 				bobaDetail.rating = result.data.rating;
 				bobaDetail.phone = result.data.phone;
-				this.setState({ bobaDetail, detail: true });
+				this.setState({ bobaDetail, detail: true, map: false });
 			}
 		});
 	};
 
 	getFavorite = () => {
-		this.setState({ favorite: true });
+		this.setState({ favorite: true, map: false });
 	};
 
 	async regionChange(region) {
@@ -94,7 +93,7 @@ export default class App extends React.Component {
 				/>
 			);
 		} else if (this.state.favorite === true) {
-			<Favorite favoriteList={this.state.favoriteList} />;
+			component = <Favorite favoriteList={this.state.favoriteList} />;
 		} else {
 			component = <Page bobaDetail={this.state.bobaDetail} />;
 		}

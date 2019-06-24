@@ -7,10 +7,13 @@ import { Button } from 'react-native-elements';
 const Marker = MapView.Marker;
 
 export default class Map extends Component {
-	state = {
-		region: null,
-		currentPage: false
-	};
+	constructor(props) {
+		super(props);
+		this.state = {
+			region: null,
+			currentPage: false
+		};
+	}
 
 	renderMarkers() {
 		let result = [];
@@ -73,12 +76,13 @@ export default class Map extends Component {
 				<Button
 					onPress={this.searchThisArea.bind(this)}
 					style={styles.button}
-					color="#fff"
+					color="#FE434C"
 					title="Search This Area"
 				/>
 				<Button
 					title="Favorite"
 					style={{ position: 'relative', bottom: 800, left: 160 }}
+					onPress={this.props.favorite}
 				/>
 			</View>
 		);

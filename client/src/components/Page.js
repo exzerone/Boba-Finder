@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, View, Text, StyleSheet } from 'react-native';
+import { Button } from 'react-native-elements';
 
 class Page extends React.Component {
 	constructor(props) {
