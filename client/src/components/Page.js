@@ -1,12 +1,26 @@
 import React from 'react';
+import Axios from 'axios';
 import { Image, View, Text, StyleSheet } from 'react-native';
 import { Button } from 'react-native-elements';
 
 class Page extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {};
-	}
+	// constructor(props) {
+	// 	super(props);
+	// 	this.state = {};
+	// }
+	storeData = () => {
+		Axios.post('http://10.3.34.11:3005/data', {
+			user: 'Chris',
+			name: this.props.bobaDetail.name,
+			metadata: this.props.bobaDetail
+		})
+			.then((result) => {
+				console.log(result);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
 
 	render() {
 		return (
@@ -56,6 +70,7 @@ class Page extends React.Component {
 						Price: {this.props.bobaDetail.price}
 					</Text>
 					<Text
+						selectable={true}
 						style={{ fontSize: 18, position: 'relative', left: 10, top: 380 }}
 					>
 						{this.props.bobaDetail.phone}
@@ -63,25 +78,33 @@ class Page extends React.Component {
 					<Text
 						style={{ fontSize: 18, position: 'relative', left: 10, top: 390 }}
 					>
-						{/* {this.props.bobaDetail.location.address1}
-						{'\n'}
-						{this.props.bobaDetail.location.city}
-						{', '}
-						{this.props.bobaDetail.location.state}{' '}
-						{this.props.bobaDetail.location.zip_code} */}
-						{this.props.bobaDetail.location}
+						{this.props.bobaDetail.location.map((result) => {
+							return result + '\n';
+						})}
 					</Text>
 					<Button
 						style={{
-							width: 200,
+							width: 190,
 							height: 125,
 							position: 'relative',
-							top: 700,
+							top: 500,
 							bottom: 0,
 							opacity: 0.4
 						}}
 						title="Go Back To Map"
 						onPress={this.props.returnMap}
+					/>
+					<Button
+						style={{
+							width: 190,
+							height: 125,
+							position: 'relative',
+							top: 505,
+							bottom: 0,
+							opacity: 0.4
+						}}
+						onPress={this.storeData}
+						title="Add To Favorite"
 					/>
 				</View>
 			</View>

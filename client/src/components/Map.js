@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import { MapView } from 'expo';
 import { PROVIDER_GOOGLE } from 'react-native-maps';
 import { Button } from 'react-native-elements';
@@ -17,16 +17,7 @@ export default class Map extends Component {
 
 	renderMarkers() {
 		let result = [];
-		let closed = '';
 		this.props.places.forEach((place, i) => {
-			if (place.closed === false) {
-				closed = 'Currently Opened';
-			} else {
-				closed = 'Currently Closed';
-			}
-			if (!place.price) {
-				place.price = 'Price Unavaiable';
-			}
 			result.push(
 				<Marker
 					key={i}
@@ -60,13 +51,12 @@ export default class Map extends Component {
 	}
 
 	render() {
-		const { region } = this.props;
 		return (
 			<View style={styles.container}>
 				<MapView
 					provider={PROVIDER_GOOGLE}
 					style={styles.container}
-					initialRegion={region}
+					initialRegion={this.props.region}
 					showsUserLocation
 					showsMyLocationButton
 					onRegionChange={this.onRegionChange.bind(this)}

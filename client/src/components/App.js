@@ -6,11 +6,6 @@ import Boba from './Boba';
 import Page from './Page';
 import Favorite from './Favorite';
 
-const deltas = {
-	latitudeDelta: 0.0922,
-	longitudeDelta: 0.0421
-};
-
 export default class App extends React.Component {
 	state = {
 		region: null,
@@ -38,7 +33,8 @@ export default class App extends React.Component {
 		const region = {
 			latitude: location.coords.latitude,
 			longitude: location.coords.longitude,
-			...deltas
+			latitudeDelta: 0.0922,
+			longitudeDelta: 0.0421
 		};
 		await this.setState({ region });
 		await this.getBobaShops();
@@ -52,12 +48,13 @@ export default class App extends React.Component {
 	};
 
 	getDetail = (id) => {
+		// console.log('this is id', id);
 		let bobaDetail = this.state.bobaDetail;
 		Boba.getBobadetail(id, (err, result) => {
 			if (err) {
 				console.log(err);
 			} else {
-				console.log(result.data.location);
+				// console.log(result.data);
 				bobaDetail.image = result.data.image_url;
 				bobaDetail.location = result.data.location.display_address;
 				bobaDetail.name = result.data.name;
@@ -81,8 +78,18 @@ export default class App extends React.Component {
 		await this.setState({ favorite: true, map: false });
 	}
 
-	async returnMap() {
-		await this.setState({ map: true, favorite: false, bobaDetail: false });
+	returnMap(event) {
+		event.stopPropagation();
+		this.setState(
+			{
+				map: true,
+				favorite: false,
+				bobaShops: []
+			},
+			() => {
+				this.getLocationAsync();
+			}
+		);
 	}
 
 	async regionChange(region) {
