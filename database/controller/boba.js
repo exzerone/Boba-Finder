@@ -22,12 +22,23 @@ fetchFavorite = (callback) => {
 		if (err) {
 			callback(err);
 		} else {
-			// console.log(result);
 			callback(err, result);
 		}
 	});
 };
+
+deleteFavorite = (callback) => {
+	Boba.deleteMany({ user: 'Chris' }, (err, result) => {
+		if (err) {
+			callback(err);
+		} else {
+			callback(err, result);
+		}
+	});
+};
+
 module.exports = {
 	addFavorite,
-	fetchFavorite
+	fetchFavorite,
+	deleteFavorite
 };

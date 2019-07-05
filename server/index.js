@@ -29,6 +29,16 @@ app.get('/data', (req, res) => {
 	});
 });
 
+app.delete('/data', (req, res) => {
+	db.deleteFavorite((err, result) => {
+		if (err) {
+			res.status(404).send();
+		} else {
+			res.status(200).send();
+		}
+	});
+});
+
 app.listen(PORT, () => {
 	console.log(`Connected to http://localhost:${PORT}`);
 });
