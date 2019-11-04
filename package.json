@@ -17,7 +17,7 @@
 		"expo-permissions": "^5.0.1",
 		"express": "^4.17.1",
 		"mongodb": "^3.2.7",
-		"mongoose": "^5.6.0",
+		"mongoose": "^5.7.5",
 		"nodemon": "^1.19.1",
 		"react": "16.8.3",
 		"react-dom": "^16.8.6",
